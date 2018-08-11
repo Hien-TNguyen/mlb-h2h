@@ -12,7 +12,7 @@ def connection():
     # connection to my local machine
     conn = MySQLdb.connect(host="localhost",
                            user="root",
-                           passwd="Hanoi123",
+                           passwd="xxxxxxxxx",
                            db = "lahman2016")
     # save data output to dictionary
     cur = conn.cursor(cursorclass=MySQLdb.cursors.DictCursor)
