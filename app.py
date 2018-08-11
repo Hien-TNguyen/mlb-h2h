@@ -1,19 +1,16 @@
 from flask import Flask, flash, redirect, render_template, request, session, abort
 import MySQLdb
+from config import *
 
 app = Flask(__name__)
+config = Config()
 
 def connection():
-    #connection to RDS
-    #conn = MySQLdb.connect(host="mlbh2h.ccr2bbshqt2i.us-west-1.rds.amazonaws.com",
-    #                       user="barrybonds",
-    #                       passwd="UShhjkY6",
-    #                       db = "lahman2016")
-    # connection to my local machine
-    conn = MySQLdb.connect(host="localhost",
-                           user="root",
-                           passwd="Hanoi123",
-                           db = "lahman2016")
+
+    conn = MySQLdb.connect(host=config.dbhost,
+                           user=config.dbuser,
+                           passwd=config.dbpw,
+                           db = config.dbname)
     # save data output to dictionary
     cur = conn.cursor(cursorclass=MySQLdb.cursors.DictCursor)
     # save data to list
@@ -41,7 +38,7 @@ def show_teams():
 @app.route("/team/<string:teamID>/")
 def display_record(teamID):
     cur, conn = connection()
-    query = """SELECT name, yearID, W , L, COALESCE(ROUND(W/(W+L),2)) as percentWin
+    query = """SELECT name, yearID, W , L, COALESCE(ROUND(W/(W+L),3)) as percentWin
                 FROM Teams where teamID= '{}';""".format(teamID)
     cur.execute(query)
     records = cur.fetchall()

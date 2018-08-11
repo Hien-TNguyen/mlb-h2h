@@ -41,9 +41,9 @@ tr:nth-child(even) {
 <!-- !PAGE CONTENT! -->
 <div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
 
- <h1 text-align:center>{{record['name']}}</h1>
   <table class="list-group" style="width:100%">
   	<tr>
+      <th>Team Name</th>
   		<th>Year</th>
   		<th>Win</th>
   		<th>Lose</th>
@@ -51,6 +51,7 @@ tr:nth-child(even) {
   	</tr>
   {% for data in record %}
     <tr class="list-group-item">
+      <td>{{data['name']}}</td>
     	<td>{{data['yearID']}}</td>
     	<td>{{data['W']}}</td>
     	<td>{{data['L']}}</td>
