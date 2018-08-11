@@ -5,9 +5,9 @@ app = Flask(__name__)
 
 def connection():
     #connection to RDS
-    #conn = MySQLdb.connect(host="mlbh2h.ccr2bbshqt2i.us-west-1.rds.amazonaws.com",
-    #                       user="barrybonds",
-    #                       passwd="UShhjkY6",
+    #conn = MySQLdb.connect(host="xxxxxxxx",
+    #                       user="xxxxxxxx",
+    #                       passwd="xxxxxxxxx",
     #                       db = "lahman2016")
     # connection to my local machine
     conn = MySQLdb.connect(host="localhost",
