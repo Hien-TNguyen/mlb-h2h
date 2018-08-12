@@ -25,7 +25,7 @@ def index():
 def show_teams():
     cur, conn = connection()
 
-    query = """select distinct T.name, T.teamID from Teams T JOIN
+    query = """select distinct T.name, T.franchID from Teams T JOIN
             TeamsFranchises TF ON T.franchID = TF.franchID Where TF.active="Y"
             AND T.name=TF.franchName ORDER BY T.name;"""
 
@@ -36,11 +36,11 @@ def show_teams():
     # return template and value for variables in the template
     return render_template('teams.html', teams=data)
 
-@app.route("/team/<string:teamID>/")
-def display_record(teamID):
+@app.route("/team/<string:franchID>/")
+def display_record(franchID):
     cur, conn = connection()
     query = """SELECT name, yearID, W , L, COALESCE(ROUND(W/(W+L),3)) as percentWin
-                FROM Teams where teamID= '{}';""".format(teamID)
+                FROM Teams where franchID= '{}';""".format(franchID)
     cur.execute(query)
     records = cur.fetchall()
     conn.close()
