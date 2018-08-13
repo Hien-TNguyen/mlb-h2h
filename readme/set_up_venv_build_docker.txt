@@ -1,0 +1,61 @@
+HOw TO SET UP VENV and BUILD - RUN DOCKER FOR PYTHON FLASK WEB APPLICATION
+
+1. Set up venv
+	- Create Venv 
+		python -m venv env
+	- Activate venv
+		source env/bin/activate
+	_ Deactivate venv
+		source env/bin/deactivate
+
+2. Build/run in docker
+	- Create Dockerfile (no extension)
+		Ex: FROM python:3.5-slim
+		LABEL maintainer="hiennguyen83@gmail.com"
+		USER root
+		WORKDIR /app
+		ADD . /app 
+		RUN pip install --trusted-host pypi.python.org -r requirements.txt
+		EXPOSE 5000 
+		ENV NAME World
+		CMD ["python", "app.py"] 
+	- Build image
+		docker build -t awsproject .
+	- Run Docker
+		docker run awsproject
+
+3. push docker to repository
+	Using Github:
+	- Create a folder for the project. 
+	- git clone in the project directory
+		git clone https://github.com/helstone28/mlb-h2h.git
+		get the url from github page
+	- copy the project into the git foleder:
+		cp -r ../../awsproject . (current folder)
+	- get gitignore file for python from github 
+		https://github.com/github/gitignore
+	 -> copy and create a file inside of git folder on your machine.
+	- add files to git
+		git status
+		git add * (add the files without files start with .)
+		git add .gitignore (add gitignore files)
+		git commit -m "comment here for what you are commiting to github"
+		git push (push the files to github)
+
+
+4. generate requirements
+	- generate file
+		pip freeze > requirements.txt 
+
+5. Tricks to run a python file on command line
+to execute a python file directly from command line without typing python
+=> add the directory of python into the .py file:
+#! /Users/hien/anaconda3/bin/python  (run "which python" to find the dir of Python)
+and change the executable into the mode of the file
+	chmod +x app.py
+	
+6. While running python Flask web application, we encountered an issue with display 
+the web page from outside local machine. We fixed this by adding 
+the parameter host to the app.run(host="0.0.0.0", port=5000)
+
+Other notes: install Flask in venv : pip install Flask

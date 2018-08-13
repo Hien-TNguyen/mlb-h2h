@@ -1,12 +1,7 @@
 class Config:
     def __init__(self):
-        if False:
-            self.dbhost = "mlbh2h.ccr2bbshqt2i.us-west-1.rds.amazonaws.com"
-            self.dbuser = ""
-            self.dbpw = ""
-            self.dbname = "lahman2016"
-        else:
-            self.dbhost = "localhost"
-            self.dbuser = "root"
-            self.dbpw = ""
+        if True:
+            self.dbhost = "127.0.0.1"
+            self.dbuser = "barrybonds"
+            self.dbpw = "(Password)"
             self.dbname = "lahman2016"

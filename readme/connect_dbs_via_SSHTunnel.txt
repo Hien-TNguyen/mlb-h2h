@@ -1,0 +1,11 @@
+1) Command to establish ssh tunnel from local machine port(3306) to RDS port(3306):
+
+ssh -L 3306:mlbh2h.ccr2bbshqt2i.us-west-1.rds.amazonaws.com:3306 -i "bhavik.pem" ec2-user@mlbh2h.info
+
+it says we’re forwarding our local port 3306 to mlbh2h.ccr2bbshqt2i.us-west-1.rds.amazonaws.com:3306 when we connect to ec2-user@mlbh2h. 
+After executing this command your teminal will be logged into ec2 server. 
+2) Open new terminal. 
+
+3) Make config.py file in the same directory where app.py exist(What to include in config.py file is in config.py.example).
+
+4) Run app.py file now.  
