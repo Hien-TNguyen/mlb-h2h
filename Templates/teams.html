@@ -5,48 +5,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
-<style>
-body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
-.w3-bar-block .w3-bar-item {padding:20px}
-ul {
-    list-style-type: none;
-    padding: 0;
-    border: 1px solid #ddd;
-}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-ul li {
-    padding: 8px 16px;
-    border-bottom: 1px solid #ddd;
-}
-
-ul li:last-child {
-    border-bottom: none
-}
-</style>
 <body>
 {% block body %}
 
-	<div class="w3-top">
-    <div class="w3-white w3-xlarge" style="max-width:1200px;margin:auto">
-      <div class="w3-center w3-padding-16">BASEBALL TEAMS</div>
-    </div>
+  <div class="w3-container">
+    <h3 style="text-align:center">BASEBAL TEAMS</h3>
   </div>
-
-<!-- !PAGE CONTENT! -->
-<div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
-
-  <!-- First Photo Grid-->
-  <div class="w3-row-padding w3-padding-16 w3-center" id="food">
-
-
-    <ul class="list-group">
-    {% for team in teams %}
-      <li class="list-group-item"><a href="team/{{team['franchID']}}">{{team['name']}}</a></li>
-    {% endfor %}
-    </ul>
-
-    </div>
-  </div>
+  {% for i in range(0, len_data, 3) %}
+  <div class="w3-row">
+    <div class="w3-col m4 w3-center">
+      <a href="team/{{teams[i]['franchID']}}">{{teams[i]['name']}}</a></div>
+    {% if (i+1) < len_data %}
+    <div class="w3-col m4 w3-center">
+      <a href="team/{{teams[i+1]['franchID']}}">{{teams[i+1]['name']}}</a></div>
+    {% endif %}
+    {% if (i+2) < len_data %}
+    <div class="w3-col m4 w3-center">
+      <a href="team/{{teams[i+2]['franchID']}}">{{teams[i+2]['name']}}</a></div>
+      {% endif %}
+      </div>
+    {% endfor%}
 
 {% endblock %}
 </body>
