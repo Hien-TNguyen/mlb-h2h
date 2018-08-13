@@ -31,10 +31,11 @@ def show_teams():
 
     cur.execute(query)
     data = cur.fetchall()
+    len_data = len(data)
     conn.close()
     print("inside show team")
     # return template and value for variables in the template
-    return render_template('teams.html', teams=data)
+    return render_template('teams.html', teams=data, len_data=len_data)
 
 @app.route("/team/<string:franchID>/")
 def display_record(franchID):
@@ -45,6 +46,10 @@ def display_record(franchID):
     records = cur.fetchall()
     conn.close()
     return render_template("record.html", record=records)
+
+@app.route("/SFG-LAD")
+def displayComparison():
+    return render_template("compare.html")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
