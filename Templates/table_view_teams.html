@@ -9,6 +9,52 @@
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
 
 <style>
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px;
+    font-size: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 100px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 8px
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
 body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 .w3-bar-block .w3-bar-item {padding:20px}
 table {
@@ -42,9 +88,23 @@ tr:nth-child(even) {
         <div class="w3-center w3-padding-16">Team1 vs Team2</div>
      {% else %}
         <div class="w3-center w3-padding-16">RECORDS</div>
-     {% endif %}
   </div>
+
+        <div class="w3-center w3-padding-16">
+          {{franchId}}    V/S
+          <div class="dropdown">
+            <select  class="w3-select">
+              {% for team in teams %}
+              <option value=""><a href="{{franchId}}-{{team['name']}}">{{team['name']}}</a></option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+
+     {% endif %}
 </div>
+
+
 
 
 <!-- !PAGE CONTENT! -->
