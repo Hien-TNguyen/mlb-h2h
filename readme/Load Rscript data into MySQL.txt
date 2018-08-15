@@ -1,0 +1,40 @@
+Load RETROSHEET data into MySQL
+
+Source: https://github.com/ffirke/baseball_etl/tree/master/mysql
+
+Tools:
+	R, RMySQL, MySQL
+	
+Installing RMySQL on Mac
+
+1. Download MySQL from dev.mysql.com. Make sure to get the 64-bit version.
+
+2. Uncompress mysql-xxx.tar.gz somewhere which we’ll now refer to as MYSQL_HOME. 
+It should contain directories such as bin, lib, and include.
+To set the path MYSQL_HOME in the command line:
+		SET MYSQL_HOME=path of MySQL
+3. Download R from CRAN.
+
+4. Download RMySQL package source from CRAN. We’ll refer to the path of that 
+RMySQL_xxx.tar.gz as RMYSQL_PATH.
+
+5. Before installing RMySQL, we need to place libmysqlclient.18.dylib in a place where 
+RMySQL can find it. sudo ln -s MYSQL_HOME/lib/libmysqlclient.18.dylib /usr/lib/libmysqlclient.18.dylib.
+Or we can use other version available in our MYSQL_HOME directory. 
+
+6. In terminal, use the following command to install RMySQL. 
+R CMD INSTALL –configure-args=’–with-mysql-dir=MYSQL_HOME –with-mysql-inc=MYSQL_HOME/include –with-mysql-lib=MYSQL_HOME/lib’ RMYSQL_PATH
+This is documented as one of the options in the installation guide.
+Note: Change the directory of RMysql 
+
+7. library(RMySQL) should know work in the R interactive shell.
+
+8. Log in to your MySQL client
+	mysql -u root -p 
+	then enter password
+9. Inside mysql, set the local-infile to true:
+	SET GLOBAL local-infile=true;
+	You can check it by: SHOW GLOBAL VARIABLES LIKE 'local_infile';
+	
+10. Then we run Rscript file from command line (in the same directory where you have the script file)
+	Rscript gamelogs.R
