@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<title>Teams</title>
+<title>W3.CSS Template</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -11,21 +11,20 @@
 
 <body>
 {% block body %}
-
-  <div class="w3-container">
-    <h3 style="text-align:center">BASEBALL TEAMS</h3>
+    <div class="w3-container">
+    <h3 style="text-align:center">BASEBAL TEAMS</h3>
   </div>
   {% for i in range(0, len_data, 3) %}
   <div class="w3-row">
     <div class="w3-col m4 w3-center">
-      <a href="team/{{teams[i]['franchID']}}">{{teams[i]['name']}}</a></div>
+      <a href="team/{{teams[i]['teamID']}}">{{teams[i]['name']}}</a></div>
     {% if (i+1) < len_data %}
     <div class="w3-col m4 w3-center">
-      <a href="team/{{teams[i+1]['franchID']}}">{{teams[i+1]['name']}}</a></div>
+      <a href="team/{{teams[i+1]['teamID']}}">{{teams[i+1]['name']}}</a></div>
     {% endif %}
     {% if (i+2) < len_data %}
     <div class="w3-col m4 w3-center">
-      <a href="team/{{teams[i+2]['franchID']}}">{{teams[i+2]['name']}}</a></div>
+      <a href="team/{{teams[i+2]['teamID']}}">{{teams[i+2]['name']}}</a></div>
       {% endif %}
       </div>
     {% endfor%}
