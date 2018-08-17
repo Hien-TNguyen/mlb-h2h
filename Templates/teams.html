@@ -1,44 +1,34 @@
-<!DOCTYPE html>
-<html>
-<title>W3.CSS Template</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<body>
+{% extends 'layout.html' %}
+
 {% block body %}
-    <div class="w3-container">
+<div class="w3-container">
     <h3 style="text-align:center">BASEBAL TEAMS</h3>
-  </div>
-  {% for i in range(0, len_data, 3) %}
-  <div class="w3-row">
-    <div class="w3-col m4 w3-center">
-      <a href="team/{{teams[i]['franchID']}}">{{teams[i]['name']}}</a></div>
-    {% if (i+1) < len_data %}
-    <div class="w3-col m4 w3-center">
-      <a href="team/{{teams[i+1]['franchID']}}">{{teams[i+1]['name']}}</a></div>
-    {% endif %}
-    {% if (i+2) < len_data %}
-    <div class="w3-col m4 w3-center">
-      <a href="team/{{teams[i+2]['franchID']}}">{{teams[i+2]['name']}}</a></div>
-      {% endif %}
-      </div>
-    {% endfor%}
-
+</div>
+{% for i in range(0, len_data, 3) %}
+    <div class="w3-row">
+        <div class="w3-col m4 w3-center">
+            <a href="team/{{teams[i]['franchID']}}">{{teams[i]['name']}}</a>
+        </div>
+            {% if (i+1) < len_data %}
+            <div class="w3-col m4 w3-center">
+                <a href="team/{{teams[i+1]['franchID']}}">{{teams[i+1]['name']}}</a>
+            </div>
+            {% endif %}
+            {% if (i+2) < len_data %}
+            <div class="w3-col m4 w3-center">
+                <a href="team/{{teams[i+2]['franchID']}}">{{teams[i+2]['name']}}</a>
+            </div>
+            {% endif %}
+    </div>
+{% endfor%}
+    <script>
+    // Script to open and close sidebar
+        function w3_open() {
+            document.getElementById("mySidebar").style.display = "block";
+        }
+        function w3_close() {
+            document.getElementById("mySidebar").style.display = "none";
+        }
+    </script>
 {% endblock %}
-</body>
-<script>
-// Script to open and close sidebar
-function w3_open() {
-    document.getElementById("mySidebar").style.display = "block";
-}
-
-function w3_close() {
-    document.getElementById("mySidebar").style.display = "none";
-}
-</script>
-</html>

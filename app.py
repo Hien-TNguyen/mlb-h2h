@@ -15,15 +15,11 @@ def connection():
     cur = conn.cursor(cursorclass=MySQLdb.cursors.DictCursor)
     return cur, conn
 
-@app.route("/")
-def index():
-    return "FLASK PROJECT"
-
 @app.route("/about")
 def aboutPage():
     return render_template("about.html")
 
-@app.route("/teams")
+@app.route("/")
 def show_teams():
     cur, conn = connection()
 

@@ -1,38 +1,4 @@
-<!DOCTYPE html>
-<html>
-<title>Records</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=4">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
-
-<style>
-body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
-.w3-bar-block .w3-bar-item {padding:20px}
-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-}
-
-td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-}
-
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
-
-
-</style>
-
+{% extends 'layout.html' %}
 {% block body %}
 <div class="w3-container">
     <h3 style="text-align:center">RECORD {{franchID}}   V/S</h3>
@@ -80,11 +46,6 @@ tr:nth-child(even) {
                     <tfoot></tfoot>
                 </table>
             </div>
-
-
-
-            {% endblock %}
-
             <script>
             // Script to open and close sidebar
             function w3_open() {
@@ -109,11 +70,11 @@ tr:nth-child(even) {
                     alert('excepion ' + err.message);
                 }
             }
-
             $(document).ready(function() {
-                $('table').DataTable();
-            } );
+                $('table').DataTable( {
+                    "order": [[ 1, "desc" ]]
+                } );
+} );
         </script>
 
-    </body>
-    </html>
+{% endblock %}
