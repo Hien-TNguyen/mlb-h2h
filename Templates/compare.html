@@ -34,31 +34,29 @@ tr:nth-child(even) {
 {% block body %}
 
 <div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
-
-  <table id = "myTable" class="table table-striped table-bordered" style="width:100%">
-    <thead>
-      <tr>
-        <th>Team1</th>
-        <th>Team2</th>
-        <th>Year</th>
-    	   <th>Team1 Win</th>
-    	    <th>Team2 Win</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for data in record %}
-    <tr>
-      <td>{{data['team1']}}</td>
-    	<td>{{data['team2']}}</td>
-      <td>{{data['yearID']}}</td>
-    	<td>{{data['Team1_WIN']}}</td>
-    	<td>{{data['Team2_WIN']}}</td>
-
-    </tr>
-  {% endfor %}
-</tbody>
-  <tfoot></tfoot>
-</table>
+    <h2 style="text-align:center"> {{team1}} vs {{team2}} </h2>
+    <h2 style="text-align:center"> Total number of Games: {{num_game}}</h2>
+    <table id = "myTable" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th style="text-align:center">YEAR</th>
+                <th style="text-align:center">{{team1}} WIN</th>
+                <th style="text-align:center">{{team2}} WIN</th>
+                <th style="text-align:center">{{team1}} WIN %</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in record %}
+            <tr>
+                <td style="text-align:center">{{data['yearID']}}</td>
+                <td style="text-align:center">{{data['Team1_WIN']}}</td>
+                <td style="text-align:center">{{data['Team2_WIN']}}</td>
+                <td style="text-align:center">{{data['percentWin']}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot></tfoot>
+    </table>
 </div>
 
 {% endblock %}
@@ -75,17 +73,17 @@ function w3_close() {
 
 function myEmptyPage(){
     try {
-    var x = document.getElementById('table');
-    if (x == null){
-      alert("Null");
+        var x = document.getElementById('table');
+        if (x == null){
+            alert("Null");
+        }
+        else {
+            x.innerHTML = "Hello World!";
+        }
     }
-    else {
-      x.innerHTML = "Hello World!";
+    catch(err) {
+        alert('excepion ' + err.message);
     }
-  }
-  catch(err) {
-    alert('excepion ' + err.message);
-  }
 }
 
 $(document).ready(function() {
