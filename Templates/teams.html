@@ -17,14 +17,14 @@
   {% for i in range(0, len_data, 3) %}
   <div class="w3-row">
     <div class="w3-col m4 w3-center">
-      <a href="team/{{teams[i]['teamID']}}">{{teams[i]['name']}}</a></div>
+      <a href="team/{{teams[i]['franchID']}}">{{teams[i]['name']}}</a></div>
     {% if (i+1) < len_data %}
     <div class="w3-col m4 w3-center">
-      <a href="team/{{teams[i+1]['teamID']}}">{{teams[i+1]['name']}}</a></div>
+      <a href="team/{{teams[i+1]['franchID']}}">{{teams[i+1]['name']}}</a></div>
     {% endif %}
     {% if (i+2) < len_data %}
     <div class="w3-col m4 w3-center">
-      <a href="team/{{teams[i+2]['teamID']}}">{{teams[i+2]['name']}}</a></div>
+      <a href="team/{{teams[i+2]['franchID']}}">{{teams[i+2]['name']}}</a></div>
       {% endif %}
       </div>
     {% endfor%}
