@@ -3,10 +3,10 @@
 <div class="container">
     <div class="w3-container">
             <div class="dropdown", align = "center">
-                <h2 style="display:inline-block">{{team1}}</h2>
+                <h2 style="display:inline-block; color:#ff0000">{{team1}}</h2>
                 <h3 style="width:100px ;display:inline-block"> against </h3>
                 <div class="dropdown", style="width:370px;display:inline-block">
-                <h3>
+                <h3 style="color:blue">
                 <select  class="w3-select" onchange="location = this.value;">
                   {% for team in teams %}
                     {% if team['name'].upper() == team2%}
@@ -18,7 +18,7 @@
                 </select>
                 </h3>
               </div>
-            </div>
+          </div><br>
     </div>
 <!-- <div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px"> -->
 
@@ -26,12 +26,10 @@
             <tbody><tr>
                 <td>Start Year:</td>
                 <td><input type="text" id="min" name="min"></td>
-            </tr>
-            <tr>
                 <td>End Year:</td>
                 <td><input type="text" id="max" name="max"></td>
             </tr>
-        </tbody></table>
+        </tbody></table><br>
 <table id="myTable" class="display" style="width:100%">
         <thead>
             <tr>
