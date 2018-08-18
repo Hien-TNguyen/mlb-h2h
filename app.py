@@ -8,13 +8,22 @@ config = Config()
 def connection():
     conn = MySQLdb.connect(host=config.dbhost,
                            user=config.dbuser,
-                           passwd=config.dbpw,
-                           #db = dbname,
-                           port = config.dbport)
+                           passwd=config.dbpw)
     # save data output to dictionary
     cur = conn.cursor(cursorclass=MySQLdb.cursors.DictCursor)
     return cur, conn
 
+def get_all_teams(franchID):
+    cur, conn = connection()
+    team_query = """SELECT distinct T.name, T.franchID, T.teamID
+                    FROM lahman2016.Teams T JOIN lahman2016.TeamsFranchises TF ON T.franchID = TF.franchID
+                    WHERE TF.active="Y" AND T.name=TF.franchName
+                        AND T.franchID != '{}' ORDER BY T.name;""".format(franchID)
+    cur.execute(team_query)
+    all_teams = cur.fetchall()
+    conn.close()
+    return all_teams
+    
 @app.route("/about")
 def aboutPage():
     return render_template("about.html")
@@ -45,14 +54,9 @@ def display_record(franchID):
     cur.execute(query)
     records = cur.fetchall()
 
-    team_query = """SELECT distinct T.name, T.franchID, T.teamID
-                    FROM lahman2016.Teams T JOIN lahman2016.TeamsFranchises TF ON T.franchID = TF.franchID
-                    WHERE TF.active="Y" AND T.name=TF.franchName
-                        AND T.franchID != '{}' ORDER BY T.name;""".format(franchID)
-    cur.execute(team_query)
-    all_teams = cur.fetchall()
-    len_data = len(all_teams)
+    all_teams = get_all_teams(franchID)
     conn.close()
+    len_data = len(records)
     return render_template("record.html", record=records, franchID=franchID, teams=all_teams, len_data=len_data)
 
 @app.route("/compare/<franchID1>/<franchID2>")
@@ -95,11 +99,14 @@ def displayComparison(franchID1, franchID2):
     total2_win = sum(game['Team2_WIN'] for game in records)
     num_game = sum(game['total_games'] for game in records)
     percent1_win = round(total1_win/num_game, 3)
+    
 
     conn.close()
+    all_teams = get_all_teams(franchID1)
+    len_data = len(records)
     return render_template("compare.html", record=records, team1=team1_name,
                            team2=team2_name, num_game=num_game, total1_win=total1_win,
-                           total2_win=total2_win, percent1_win=percent1_win)
+                           total2_win=total2_win, percent1_win=percent1_win, teams=all_teams, len_data=len_data, franchID=franchID1)
 
 @app.route("/compare/<startYear>/<endYear>")
 def showBetweenYears(startYear, endYear):
