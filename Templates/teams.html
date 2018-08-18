@@ -3,21 +3,21 @@
 
 {% block body %}
 <div class="w3-container">
-    <h3 style="text-align:center">BASEBAL TEAMS</h3>
+    <h3 style="text-align:center; color:#ff0000; font-weight: bold">BASEBALL TEAMS</h3>
 </div>
 {% for i in range(0, len_data, 3) %}
-    <div class="w3-row">
+    <div class="w3-row-padding">
         <div class="w3-col m4 w3-center">
-            <a href="team/{{teams[i]['franchID']}}">{{teams[i]['name']}}</a>
+            <h4><a href="team/{{teams[i]['franchID']}}">{{teams[i]['name']}}</a></h4>
         </div>
             {% if (i+1) < len_data %}
             <div class="w3-col m4 w3-center">
-                <a href="team/{{teams[i+1]['franchID']}}">{{teams[i+1]['name']}}</a>
+                <h4><a href="team/{{teams[i+1]['franchID']}}">{{teams[i+1]['name']}}</a></h4>
             </div>
             {% endif %}
             {% if (i+2) < len_data %}
             <div class="w3-col m4 w3-center">
-                <a href="team/{{teams[i+2]['franchID']}}">{{teams[i+2]['name']}}</a>
+                <h4><a href="team/{{teams[i+2]['franchID']}}">{{teams[i+2]['name']}}</a></h4>
             </div>
             {% endif %}
     </div>

@@ -8,22 +8,30 @@ config = Config()
 def connection():
     conn = MySQLdb.connect(host=config.dbhost,
                            user=config.dbuser,
-                           passwd=config.dbpw)
+                           passwd=config.dbpw,
+                           port = 3336)
     # save data output to dictionary
     cur = conn.cursor(cursorclass=MySQLdb.cursors.DictCursor)
     return cur, conn
 
 def get_all_teams(franchID):
     cur, conn = connection()
-    team_query = """SELECT distinct T.name, T.franchID, T.teamID
-                    FROM lahman2016.Teams T JOIN lahman2016.TeamsFranchises TF ON T.franchID = TF.franchID
-                    WHERE TF.active="Y" AND T.name=TF.franchName
-                        AND T.franchID != '{}' ORDER BY T.name;""".format(franchID)
+    # team_query = """SELECT distinct T.name, T.franchID, T.teamID
+    #                 FROM lahman2016.Teams T JOIN lahman2016.TeamsFranchises TF ON T.franchID = TF.franchID
+    #                 WHERE TF.active="Y" AND T.name=TF.franchName
+    #                     AND T.franchID != '{}' ORDER BY T.name;""".format(franchID)
+
+    team_query = """SELECT T.name, T.franchID, T.yearID, T.teamID
+	                FROM lahman2016.Teams T
+                    INNER JOIN (select franchID, max(yearID) as maxYear from lahman2016.Teams group by franchID) TM
+                          ON T.franchID=TM.franchID and T.yearID=TM.maxYear
+                    JOIN lahman2016.TeamsFranchises TF ON T.franchID=TF.franchID
+                    WHERE TF.active='Y' and T.franchID != "{}";""".format(franchID)
     cur.execute(team_query)
     all_teams = cur.fetchall()
     conn.close()
     return all_teams
-    
+
 @app.route("/about")
 def aboutPage():
     return render_template("about.html")
@@ -31,11 +39,12 @@ def aboutPage():
 @app.route("/")
 def show_teams():
     cur, conn = connection()
-
-    query = """SELECT distinct T.name, T.franchID, T.teamID
-               FROM lahman2016.Teams T JOIN lahman2016.TeamsFranchises TF ON T.franchID = TF.franchID
-               WHERE TF.active="Y" AND T.name=TF.franchName
-               ORDER BY T.name;"""
+    # query to get active teams
+    query = """SELECT T.name, T.franchID, T.yearID
+    	       FROM lahman2016.Teams T
+               INNER JOIN (select franchID, max(yearID) as maxYear from lahman2016.Teams group by franchID) TM ON T.franchID=TM.franchID and T.yearID=TM.maxYear
+               JOIN lahman2016.TeamsFranchises TF ON T.franchID=TF.franchID
+               WHERE TF.active='Y';"""
     cur.execute(query)
     data = cur.fetchall()
     len_data = len(data)
@@ -99,7 +108,7 @@ def displayComparison(franchID1, franchID2):
     total2_win = sum(game['Team2_WIN'] for game in records)
     num_game = sum(game['total_games'] for game in records)
     percent1_win = round(total1_win/num_game, 3)
-    
+
 
     conn.close()
     all_teams = get_all_teams(franchID1)

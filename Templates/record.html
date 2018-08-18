@@ -1,11 +1,11 @@
 {% extends 'layout.html' %}
 {% block body %}
 <div class="w3-container">
-        
+
         <div class="dropdown", align = "center">
             <h2 style="display:inline-block">{{record[len_data-1]['name']}}</h2>  <h3 style="width:100px ;display:inline-block"> against </h3>
-            
-            <div class="dropdown", style="width:300px;display:inline-block"">
+
+            <div class="dropdown", style="width:300px;display:inline-block">
             <h3>
             <select  class="w3-select" onchange="location = this.value;">
                 <option>Everybody</option>
@@ -23,11 +23,11 @@
                 <table id = "myTable" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
-                            <th>Team Name</th>
-                            <th>Year</th>
-                            <th>Win</th>
-                            <th>Lose</th>
-                            <th>Win %</th>
+                            <th>TEAM NAME</th>
+                            <th>YEAR</th>
+                            <th>WIN</th>
+                            <th>LOSE</th>
+                            <th>WIN %</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -72,7 +72,8 @@
             }
             $(document).ready(function() {
                 $('table').DataTable( {
-                    "order": [[ 1, "desc" ]]
+                    "order": [[ 1, "desc" ]],
+                    "pageLength": 50
                 } );
 } );
         </script>

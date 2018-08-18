@@ -16,30 +16,44 @@
     <style>
     body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
     .w3-bar-block .w3-bar-item {padding:20px}
+    .year_table tr:nth-child(even) tr:nth-child(odd) {
+        background-color:white
+    }
     table {
-        font-family: arial, sans-serif;
+        font-family: "Karma",sans-serif;
         border-collapse: collapse;
-        width: 100%;
+        /* width: 100%; */
     }
 
-    td, th {
+    th {
+        background-color: #4CAF50;
+        color: white;
         border: 1px solid #dddddd;
-        text-align: left;
+        text-align: center;
+        font-size: 16px;
+        font-family: "Karma",sans-serif;
         padding: 8px;
+    }
+
+    td {
+        border: 1px solid #dddddd;
+        text-align: justify;
+        font-size: 16px;
+        font-family: "Karma",sans-serif;
+        padding: 8px;
+    }
+    p, li {
+        font-size: 16px;
     }
 
     tr:nth-child(even) {
         background-color: #dddddd;
     }
-
-
     </style>
   </head>
   <body>
     {% include '_navbar.html' %}
-    <div class="container">
       {% block body %}{% endblock %}
-    </div>
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="//cdn.ckeditor.com/4.6.2/basic/ckeditor.js"></script>
