@@ -9,17 +9,13 @@ def connection():
     conn = MySQLdb.connect(host=config.dbhost,
                            user=config.dbuser,
                            passwd=config.dbpw,
-                           port = 3336)
+                           port = config.dbport)
     # save data output to dictionary
     cur = conn.cursor(cursorclass=MySQLdb.cursors.DictCursor)
     return cur, conn
 
 def get_all_teams(franchID):
     cur, conn = connection()
-    # team_query = """SELECT distinct T.name, T.franchID, T.teamID
-    #                 FROM lahman2016.Teams T JOIN lahman2016.TeamsFranchises TF ON T.franchID = TF.franchID
-    #                 WHERE TF.active="Y" AND T.name=TF.franchName
-    #                     AND T.franchID != '{}' ORDER BY T.name;""".format(franchID)
 
     team_query = """SELECT T.name, T.franchID, T.yearID, T.teamID
 	                FROM lahman2016.Teams T
@@ -51,7 +47,7 @@ def show_teams():
     conn.close()
     print("inside show team")
     # return template and value for variables in the template
-    return render_template('teams.html', teams=data, len_data=len_data)
+    return render_template("teams.html", teams=data, len_data=len_data)
 
 @app.route("/team/<franchID>")
 def display_record(franchID):
@@ -108,7 +104,6 @@ def displayComparison(franchID1, franchID2):
     total2_win = sum(game['Team2_WIN'] for game in records)
     num_game = sum(game['total_games'] for game in records)
     percent1_win = round(total1_win/num_game, 3)
-
 
     conn.close()
     all_teams = get_all_teams(franchID1)
